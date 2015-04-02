@@ -1,14 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">ScoreKeeper</string>
-
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-
+    <string name="title_section1">Home</string>
+    <string name="title_section2">Registrar juego</string>
+    <string name="title_section3">Registrar equipo</string>
+    <string name="title_section4">Registrar partida</string>
+    <string name="title_section5">Exit</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_example">Example action</string>
-
+    <string name="action_example">ScoreKeeper</string>
     <string name="action_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

@@ -5,18 +5,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity
@@ -51,9 +45,35 @@ public class MainActivity extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
+        switch (position + 1){          //Con este switch se crean las vistas de los fragments
+            case 1:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, PlaceholderFragment.newInstance(position))
+                        .commit();
+                break;
+            case 2:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, RegistrarJuego.newInstance(position))
+                        .commit();
+                break;
+            case 3:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, RegistrarEquipo.newInstance(position))
+                        .commit();
+                break;
+            case 4:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, RegistrarPartida.newInstance(position))
+                        .commit();
+                break;
+            case 5:
+                moveTaskToBack(true);
+        }
+    }
+
+    //Funcion para cambiar el titulo del fragment
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
     }
 
     public void onSectionAttached(int number) {
@@ -67,6 +87,11 @@ public class MainActivity extends ActionBarActivity
             case 3:
                 mTitle = getString(R.string.title_section3);
                 break;
+            case 4:
+                mTitle = getString(R.string.title_section4);
+            case 5:
+                mTitle = getString(R.string.title_section5);
+                break;
         }
     }
 
@@ -74,7 +99,7 @@ public class MainActivity extends ActionBarActivity
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
+        //actionBar.setTitle(mTitle);
     }
 
 
@@ -91,7 +116,7 @@ public class MainActivity extends ActionBarActivity
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
+  /*  @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -104,7 +129,7 @@ public class MainActivity extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    } */
 
     /**
      * A placeholder fragment containing a simple view.
@@ -134,6 +159,11 @@ public class MainActivity extends ActionBarActivity
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+
+            //Aqui se cambia el titulo del fragment
+            ((MainActivity) getActivity())
+                    .setActionBarTitle(getString(R.string.title_section1));
+
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
         }
