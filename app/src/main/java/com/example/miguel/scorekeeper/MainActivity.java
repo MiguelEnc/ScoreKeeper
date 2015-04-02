@@ -1,6 +1,7 @@
 package com.example.miguel.scorekeeper;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -45,7 +46,9 @@ public class MainActivity extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
-        switch (position + 1){          //Con este switch se crean las vistas de los fragments
+
+        //Con este switch se crean las vistas de los fragments
+        switch (position + 1){
             case 1:
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, PlaceholderFragment.newInstance(position))
@@ -102,7 +105,7 @@ public class MainActivity extends ActionBarActivity
         //actionBar.setTitle(mTitle);
     }
 
-
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
@@ -115,6 +118,9 @@ public class MainActivity extends ActionBarActivity
         }
         return super.onCreateOptionsMenu(menu);
     }
+    */
+
+
 
   /*  @Override
     public boolean onOptionsItemSelected(MenuItem item) {
