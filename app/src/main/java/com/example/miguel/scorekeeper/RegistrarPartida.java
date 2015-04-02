@@ -31,7 +31,7 @@ public class RegistrarPartida extends android.support.v4.app.Fragment {
         ((MainActivity) getActivity())
                 .setActionBarTitle(getString(R.string.title_section4));
 
-        return inflater.inflate(R.layout.fragment_RegistrarPartida, container, false);
+        return inflater.inflate(R.layout.fragment_registrar_partida, container, false);
     }
 
     @Override

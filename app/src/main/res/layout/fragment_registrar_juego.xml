@@ -4,8 +4,9 @@
     tools:context="com.example.miguel.scorekeeper.RegistrarJuego">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="Juego"
-        android:id="@+id/TextViewJuego" />
+    <TextView android:layout_width="wrap_content" android:layout_height="fill_parent"
+        android:text="@string/TextViewJuego"
+        android:id="@+id/TextViewJuego"
+        android:layout_gravity="center_horizontal|top" />
 
 </FrameLayout>

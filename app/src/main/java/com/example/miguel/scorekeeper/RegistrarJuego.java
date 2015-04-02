@@ -31,7 +31,7 @@ public class RegistrarJuego extends android.support.v4.app.Fragment {
         ((MainActivity) getActivity())
                 .setActionBarTitle(getString(R.string.title_section2));
 
-        return inflater.inflate(R.layout.fragment_RegistrarJuego, container, false);
+        return inflater.inflate(R.layout.fragment_registrar_juego, container, false);
     }
 
     @Override

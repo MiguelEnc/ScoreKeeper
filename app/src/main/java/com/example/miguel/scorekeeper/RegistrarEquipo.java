@@ -31,7 +31,7 @@ public class RegistrarEquipo extends android.support.v4.app.Fragment {
         ((MainActivity) getActivity())
                 .setActionBarTitle(getString(R.string.title_section3));
 
-        return inflater.inflate(R.layout.fragment_RegistrarEquipo, container, false);
+        return inflater.inflate(R.layout.fragment_registrar_equipo, container, false);
     }
 
     @Override

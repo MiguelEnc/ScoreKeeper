@@ -12,5 +12,8 @@
     <string name="action_example">ScoreKeeper</string>
     <string name="action_settings">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="textViewEquipo">Equipo</string>
+    <string name="TextViewJuego">Juego</string>
+    <string name="TextViewPartida">Partida</string>
 
 </resources>
