@@ -18,5 +18,6 @@
     <string name="title_activity_activity__registrar_equipo">Activity_RegistrarEquipo</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_inicar_partida">InicarPartida</string>
+    <string name="title_activity_partida_actual">PartidaActual</string>
 
 </resources>
