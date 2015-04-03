@@ -21,11 +21,12 @@ import android.widget.EditText;
  */
 public class RegistrarEquipo extends android.support.v4.app.Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
-
+    Context context = this.getActivity();
 
     public RegistrarEquipo() {
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,10 +39,31 @@ public class RegistrarEquipo extends android.support.v4.app.Fragment {
         final EditText editTextNombre = (EditText) v.findViewById(R.id.editTextNombreEquipo);
         final EditText editTextDesc = (EditText) v.findViewById(R.id.editTextDescEquipo);
 
+        final String textoNombre = editTextNombre.getText().toString();
+        final String textoDescrip = editTextDesc.getText().toString();
+
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                //Guardando los datos en la base de datos
+                DBConnection connection = new DBConnection(context);
+                connection.insertTeam(textoNombre, textoDescrip);
+
+                //Alert dialog, Equipo registrado.
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+                builder1.setMessage("Equipo agregado.");
+                builder1.setPositiveButton("Ok",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                                editTextDesc.setText("");
+                                editTextNombre.setText("");
+                            }
+                        });
+
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
             }
         });
 
@@ -52,6 +74,7 @@ public class RegistrarEquipo extends android.support.v4.app.Fragment {
                 editTextNombre.setText("");
 
                 //TODO: llevar al MainActivity
+
             }
         });
 
@@ -74,4 +97,5 @@ public class RegistrarEquipo extends android.support.v4.app.Fragment {
         frag.setArguments(args);
         return frag;
     }
+
 }
