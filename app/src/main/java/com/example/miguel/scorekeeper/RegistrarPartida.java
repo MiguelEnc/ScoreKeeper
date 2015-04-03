@@ -3,6 +3,7 @@ package com.example.miguel.scorekeeper;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -60,6 +61,17 @@ public class RegistrarPartida extends android.support.v4.app.Fragment {
             }
         });
 
+
+        buttonIniciar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //ir a partida actual
+                Intent intent = new Intent(v.getContext(), PartidaActual.class);
+                v.getContext().startActivity(intent);
+                getActivity().finish();
+            }
+        });
 
         //Aqui se cambia el titulo del fragment
         ((MainActivity) getActivity())
