@@ -3,12 +3,14 @@ package com.example.miguel.scorekeeper;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +53,11 @@ public class RegistrarEquipo extends android.support.v4.app.Fragment {
                 editTextDesc.setText("");
                 editTextNombre.setText("");
 
-                //TODO: llevar al MainActivity
+                //ir al Main Activity
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                v.getContext().startActivity(intent);
+                getActivity().finish();
+
             }
         });
 
@@ -74,4 +80,5 @@ public class RegistrarEquipo extends android.support.v4.app.Fragment {
         frag.setArguments(args);
         return frag;
     }
+
 }

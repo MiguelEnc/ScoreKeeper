@@ -102,7 +102,9 @@
                     android:layout_height="wrap_content"
                     android:text="Cancelar"
                     android:id="@+id/buttonCancelEquipo"
-                    android:layout_gravity="right|bottom" />
+                    android:layout_gravity="right|bottom"
+                    android:onClick="setContentView"
+                    android:nestedScrollingEnabled="true" />
             </FrameLayout>
         </LinearLayout>
 

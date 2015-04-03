@@ -49,4 +49,5 @@ public class Equipo {
     public String getDescripcion(){
         return this.descripcion;
     }
+
 }
