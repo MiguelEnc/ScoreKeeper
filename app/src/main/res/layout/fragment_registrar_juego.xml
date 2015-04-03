@@ -58,7 +58,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editTextNombreJuego"
-                android:inputType="text" />
+                android:inputType="text"
+                android:onClick="setContentView" />
 
             <LinearLayout
                 android:orientation="vertical"
@@ -102,7 +103,8 @@
                     android:layout_height="wrap_content"
                     android:text="Cancelar"
                     android:id="@+id/buttonCancelJuego"
-                    android:layout_gravity="right|bottom" />
+                    android:layout_gravity="right|bottom"
+                    android:onClick="setContentView" />
             </FrameLayout>
         </LinearLayout>
 

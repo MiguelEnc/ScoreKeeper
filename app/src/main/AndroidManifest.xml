@@ -24,8 +24,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity_RegistrarEquipo"
-            android:label="@string/title_activity_activity__registrar_equipo" >
+            android:name=".InicarPartida"
+            android:label="@string/title_activity_inicar_partida" >
         </activity>
     </application>
 

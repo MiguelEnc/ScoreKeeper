@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -73,7 +74,10 @@ public class RegistrarJuego extends android.support.v4.app.Fragment {
                 editTextNombre.setText("");
                 editTextDescrip.setText("");
 
-                //TODO: llevar al MainActivity
+                //ir al Main Activity
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                v.getContext().startActivity(intent);
+                getActivity().finish();
             }
         });
 
