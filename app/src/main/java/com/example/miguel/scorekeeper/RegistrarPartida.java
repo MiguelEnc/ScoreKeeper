@@ -47,7 +47,7 @@ public class RegistrarPartida extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
 
-                //ir al Main Activity
+                //ir a partida actual
                 Intent intent = new Intent(v.getContext(), PartidaActual.class);
                 v.getContext().startActivity(intent);
                 getActivity().finish();
