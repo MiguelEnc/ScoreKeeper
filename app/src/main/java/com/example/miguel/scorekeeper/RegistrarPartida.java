@@ -12,6 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Created by miguel on 04/03/15.
@@ -35,12 +38,28 @@ public class RegistrarPartida extends android.support.v4.app.Fragment {
         Button buttonIniciar = (Button) v.findViewById(R.id.buttonIniciarPartida);
         Spinner spinnerEquipoA = (Spinner) v.findViewById(R.id.spinnerEquipoA);
         Spinner spinnerEquipoB = (Spinner) v.findViewById(R.id.spinnerEquipoB);
+        Spinner spinnerJuegos = (Spinner) v.findViewById(R.id.spinnerJuego);
 
         //Coneccion a la base de datos
         DBConnection connection = new DBConnection(context);
 
-        //arrayAdapter para popular el Spinner
-        //ArrayAdapter<String> listaJuegos = datosJuegos(connection);
+        //Lista de juegos a mostrar
+        spinnerJuegos.setAdapter(listaJuegos(connection));
+
+        //Lista de equipos a mostrar
+        spinnerEquipoA.setAdapter(listaEquipos(connection));
+
+        //Lista de equipos a mostrar
+        spinnerEquipoB.setAdapter(listaEquipos(connection));
+
+
+        buttonIniciar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: llevar a PartidaEnCurso
+            }
+        });
+
 
         //Aqui se cambia el titulo del fragment
         ((MainActivity) getActivity())
@@ -49,13 +68,57 @@ public class RegistrarPartida extends android.support.v4.app.Fragment {
         return v;
     }
 
-    /*
-    private ArrayAdapter<String> datosJuegos(DBConnection connection){
-        ArrayAdapter<String> lista = new ArrayAdapter<String>();
 
-        return lista;
+    private ArrayAdapter<String> listaJuegos(DBConnection connection){
+        ArrayList<String> lista = new ArrayList<>();
+
+        //Carga todos los juegos de la base de datos
+        List<Juego> juegos = connection.getAllGames();
+
+        //llena la lista con los nombres de los juegos
+        for(int i = 0; i < juegos.size(); i++){
+            Juego juego = juegos.get(i);
+            lista.add(juego.getNombre().toString());
+        }
+
+        //crea el adapter para llenar el spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                context,
+                android.R.layout.simple_spinner_item,
+                lista
+        );
+
+        //asigna la forma en la que se presentaran los datos
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        return adapter;
     }
-    */
+
+    private ArrayAdapter<String> listaEquipos(DBConnection connection){
+        ArrayList<String> lista = new ArrayList<>();
+
+        //Carga todos los equipos de la base de datos
+        List<Equipo> equipos = connection.getAllTeams();
+
+        //llena la lista con los nombres de los equipos
+        for(int i = 0; i < equipos.size(); i++){
+            Equipo equipo = equipos.get(i);
+            lista.add(equipo.getNombre().toString());
+        }
+
+        //crea el adapter para llenar el spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                context,
+                android.R.layout.simple_spinner_item,
+                lista
+        );
+
+        //asigna la forma en la que se presentaran los datos
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        return adapter;
+    }
+
 
     @Override
     public void onAttach(Activity activity) {
