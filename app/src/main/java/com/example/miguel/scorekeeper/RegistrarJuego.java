@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Created by miguel on 04/02/15.
  */
 public class RegistrarJuego extends android.support.v4.app.Fragment {
 

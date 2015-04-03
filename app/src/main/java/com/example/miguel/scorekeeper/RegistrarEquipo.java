@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -16,10 +17,9 @@ import android.widget.EditText;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Created by miguel on 04/02/15.
  */
 public class RegistrarEquipo extends android.support.v4.app.Fragment {
-//public class RegistrarEquipo extends ActionBarActivity {
     private static final String ARG_SECTION_NUMBER = "section_number";
 
 
@@ -27,24 +27,33 @@ public class RegistrarEquipo extends android.support.v4.app.Fragment {
         // Required empty public constructor
     }
 
-    Context context;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_registrar_equipo, container, false);
-        Button button = (Button) v.findViewById(R.id.PruebaBoton);
-        final EditText text = (EditText) v.findViewById(R.id.editText);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        Button buttonSave = (Button) v.findViewById(R.id.buttonSaveEquipo);
+        Button buttonCancel = (Button) v.findViewById(R.id.buttonCancelEquipo);
+        final EditText editTextNombre = (EditText) v.findViewById(R.id.editTextNombreEquipo);
+        final EditText editTextDesc = (EditText) v.findViewById(R.id.editTextDescEquipo);
+
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                text.setText("");
+
             }
         });
 
-        // Inflate the layout for this fragment
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editTextDesc.setText("");
+                editTextNombre.setText("");
+
+                //TODO: llevar al MainActivity
+            }
+        });
 
         //Aqui se cambia el titulo del fragment
         ((MainActivity) getActivity())
