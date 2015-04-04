@@ -46,8 +46,12 @@ public class RegistrarEquipo extends android.support.v4.app.Fragment {
 
                 //Guardando los datos en la base de datos
                 DBConnection connection = new DBConnection(RegistrarEquipo.this.getActivity());
-                if(!editTextNombre.getText().toString().matches("") || !editTextDescrip.getText().toString().matches("")) {
+                if(editTextNombre.getText().toString().isEmpty() || editTextDescrip.getText().toString().isEmpty()) {
 
+                    Toast.makeText(RegistrarEquipo.this.getActivity(),
+                            "Llenar campos.", Toast.LENGTH_LONG).show();
+
+                }else{
                     //comprobando si el nombre ya existe en la base de datos
                     if(connection.teamExists(editTextNombre.getText().toString())){
                         //el equipo ya existe
@@ -59,9 +63,6 @@ public class RegistrarEquipo extends android.support.v4.app.Fragment {
                         editTextDescrip.setText("");
                         editTextNombre.setText("");
                     }
-                }else{
-                    Toast.makeText(RegistrarEquipo.this.getActivity(),
-                            "Llenar campos.", Toast.LENGTH_LONG).show();
                 }
             }
         });

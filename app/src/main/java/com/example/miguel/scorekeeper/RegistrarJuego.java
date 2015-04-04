@@ -47,25 +47,27 @@ public class RegistrarJuego extends android.support.v4.app.Fragment {
 
                 //Guardando los datos en la base de datos
                 DBConnection connection = new DBConnection(RegistrarJuego.this.getActivity());
-                if(!editTextNombre.getText().toString().matches("") || !editTextDescrip.getText().toString().matches("")) {
+                if(editTextNombre.getText().toString().isEmpty() || editTextDescrip.getText().toString().isEmpty()) {
+
+                    Toast.makeText(RegistrarJuego.this.getActivity(),
+                            "Llenar campos.", Toast.LENGTH_LONG).show();
+
+                }else {
 
                     //comprobando si el nombre ya existe en la base de datos
-                    if(connection.gameExists(editTextNombre.getText().toString())){
+                    if (connection.gameExists(editTextNombre.getText().toString())) {
                         //el juego ya existe
                         crearAlertDialog("El juego ya existe.");
                         editTextNombre.setText("");
-                    }else {
+                    } else {
                         //el juego no existe, guardar
                         connection.insertGame(editTextNombre.getText().toString(), editTextDescrip.getText().toString());
                         crearAlertDialog("Juego agregado.");
                         editTextDescrip.setText("");
                         editTextNombre.setText("");
-                    }
-                }else{
-                    Toast.makeText(RegistrarJuego.this.getActivity(),
-                            "Llenar campos.", Toast.LENGTH_LONG).show();
-                }
 
+                    }
+                }
             }
         });
 
