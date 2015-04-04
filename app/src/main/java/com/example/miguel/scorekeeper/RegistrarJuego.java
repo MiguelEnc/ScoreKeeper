@@ -47,7 +47,7 @@ public class RegistrarJuego extends android.support.v4.app.Fragment {
 
                 //Guardando los datos en la base de datos
                 DBConnection connection = new DBConnection(RegistrarJuego.this.getActivity());
-                if(editTextNombre.getText().toString() != "" || editTextDescrip.getText().toString() != "") {
+                if(!editTextNombre.getText().toString().matches("") || !editTextDescrip.getText().toString().matches("")) {
 
                     //comprobando si el nombre ya existe en la base de datos
                     if(connection.gameExists(editTextNombre.getText().toString())){
@@ -64,6 +64,7 @@ public class RegistrarJuego extends android.support.v4.app.Fragment {
                     Toast.makeText(RegistrarJuego.this.getActivity(),
                             "Llenar campos.", Toast.LENGTH_LONG).show();
                 }
+
             }
         });
 

@@ -46,7 +46,7 @@ public class RegistrarEquipo extends android.support.v4.app.Fragment {
 
                 //Guardando los datos en la base de datos
                 DBConnection connection = new DBConnection(RegistrarEquipo.this.getActivity());
-                if(editTextNombre.getText().toString() != "" || editTextDescrip.getText().toString() != "") {
+                if(!editTextNombre.getText().toString().matches("") || !editTextDescrip.getText().toString().matches("")) {
 
                     //comprobando si el nombre ya existe en la base de datos
                     if(connection.teamExists(editTextNombre.getText().toString())){
