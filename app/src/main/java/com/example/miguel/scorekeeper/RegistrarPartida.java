@@ -42,7 +42,7 @@ public class RegistrarPartida extends android.support.v4.app.Fragment {
         Button buttonIniciar = (Button) v.findViewById(R.id.buttonIniciarPartida);
         final Spinner spinnerEquipoA = (Spinner) v.findViewById(R.id.spinnerEquipoA);
         final Spinner spinnerEquipoB = (Spinner) v.findViewById(R.id.spinnerEquipoB);
-        Spinner spinnerJuegos = (Spinner) v.findViewById(R.id.spinnerJuego);
+        final Spinner spinnerJuegos = (Spinner) v.findViewById(R.id.spinnerJuego);
 
         //Coneccion a la base de datos
         DBConnection connection = new DBConnection(RegistrarPartida.this.getActivity());
@@ -64,6 +64,12 @@ public class RegistrarPartida extends android.support.v4.app.Fragment {
                 if(!spinnerEquipoA.getSelectedItem().toString().matches(spinnerEquipoB.getSelectedItem().toString())){
                     //ir a partida actual
                     Intent intent = new Intent(v.getContext(), PartidaActual.class);
+
+                    //llevando los datos de los equipos y el juego
+                    intent.putExtra("juego",spinnerJuegos.getSelectedItem().toString());
+                    intent.putExtra("equipoA",spinnerEquipoA.getSelectedItem().toString());
+                    intent.putExtra("equipoB",spinnerEquipoB.getSelectedItem().toString());
+
                     v.getContext().startActivity(intent);
                     getActivity().finish();
                 }else {

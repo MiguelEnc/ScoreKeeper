@@ -28,6 +28,8 @@ public class PartidaActual extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_partida_actual);
 
+        Intent intent = getIntent();
+
         DBConnection connection = new DBConnection(PartidaActual.this);
 
         Button buttonFinalizar = (Button) findViewById(R.id.buttonFinalizar);
@@ -37,6 +39,15 @@ public class PartidaActual extends ActionBarActivity {
         final EditText editTextEquipoB = (EditText) findViewById(R.id.editTextEquipoB);
         final TextView textViewPuntosA = (TextView)findViewById(R.id.textViewPuntosA);
         final TextView textViewPuntosB = (TextView)findViewById(R.id.textViewPuntosB);
+
+        TextView textViewJuego = (TextView) findViewById(R.id.textViewJuego);
+        TextView textViewEquipoA = (TextView) findViewById(R.id.textViewEquipoA);
+        TextView textViewEquipoB = (TextView) findViewById(R.id.textViewEquipoB);
+
+        //Asignando nombres a los textViews
+        textViewJuego.setText(intent.getStringExtra("juego"));
+        textViewEquipoA.setText(intent.getStringExtra("equipoA"));
+        textViewEquipoB.setText(intent.getStringExtra("equipoB"));
 
         editTextEquipoA.setText("");
         editTextEquipoB.setText("");
