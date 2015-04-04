@@ -45,8 +45,14 @@ public class RegistrarJuego extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
 
-                //Guardando los datos en la base de datos
                 DBConnection connection = new DBConnection(RegistrarJuego.this.getActivity());
+
+                //Creando juego default
+                if(!connection.gameExists("juego a")){
+                    connection.insertGame("juego a","descripcion");
+                }
+
+                //Guardando los datos en la base de datos
                 if(editTextNombre.getText().toString().isEmpty() || editTextDescrip.getText().toString().isEmpty()) {
 
                     Toast.makeText(RegistrarJuego.this.getActivity(),

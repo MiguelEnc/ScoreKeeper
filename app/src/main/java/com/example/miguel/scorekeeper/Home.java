@@ -43,6 +43,12 @@ public class Home extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
+        //Creando partida default
+        DBConnection connection = new DBConnection(Home.this.getActivity());
+        if(!connection.partidaExists("juego a", "prueba a", "prueba b")){
+            connection.insertPartida("juego a", "prueba a", "prueba b", 3, 2);
+        }
+
         ListView listaPartidas = (ListView) rootView.findViewById(R.id.listViewPartidas);
         listaPartidas.setAdapter(adapterList());
 

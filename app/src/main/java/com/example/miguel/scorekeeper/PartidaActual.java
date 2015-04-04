@@ -105,6 +105,8 @@ public class PartidaActual extends ActionBarActivity {
                 editTextEquipoA.setText("");
                 editTextEquipoB.setText("");
 
+
+
                 connection.insertPartida(
                         intent.getStringExtra("juego"),
                         intent.getStringExtra("equipoA"),

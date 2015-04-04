@@ -279,4 +279,27 @@ public class DBConnection extends SQLiteOpenHelper{
             return true;
         }
     }
+
+    public Boolean partidaExists(String juego, String equipoA, String equipoB){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM " +
+                        PARTIDA_TABLE_NAME + " WHERE " +
+                        PARTIDA_COLUMN_JUEGO + " = ? AND " +
+                        PARTIDA_COLUMN_EQUIPO_A + " = ? AND " +
+                        PARTIDA_COLUMN_EQUIPO_B + " = ?",
+                new String[] {juego, equipoA, equipoB}
+        );
+
+        if (cursor.getCount() <= 0){
+            //esta partida no esta registrado
+            return false;
+        }
+        else{
+            //esta partida si esta registrado
+            return true;
+        }
+
+    }
 }
