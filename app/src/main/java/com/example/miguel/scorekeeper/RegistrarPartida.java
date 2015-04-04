@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,8 +59,9 @@ public class RegistrarPartida extends android.support.v4.app.Fragment {
         buttonIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //Comprobacion de equipos iguales
-                if(spinnerEquipoA.getSelectedItem().toString() != spinnerEquipoB.getSelectedItem().toString()){
+                if(!spinnerEquipoA.getSelectedItem().toString().matches(spinnerEquipoB.getSelectedItem().toString())){
                     //ir a partida actual
                     Intent intent = new Intent(v.getContext(), PartidaActual.class);
                     v.getContext().startActivity(intent);
