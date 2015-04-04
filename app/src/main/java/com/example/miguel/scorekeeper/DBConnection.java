@@ -58,7 +58,7 @@ public class DBConnection extends SQLiteOpenHelper{
     };
 
     public static final String CREATE_GAME_TABLE =
-            "CREATE TABLE" +
+            "CREATE TABLE " +
                     GAME_TABLE_NAME +
                     "( " +
                     GAME_COLUMN_ID + " integer primary key, " +
@@ -67,7 +67,7 @@ public class DBConnection extends SQLiteOpenHelper{
                     ")";
 
     public static final String CREATE_TEAM_TABLE =
-            "CREATE TABLE" +
+            "CREATE TABLE " +
                     TEAM_TABLE_NAME +
                     "( " +
                     TEAM_COLUMN_ID + " integer primary key, " +
@@ -76,7 +76,7 @@ public class DBConnection extends SQLiteOpenHelper{
                     ")";
 
     public static final String CREATE_PARTIDA_TABLE =
-            "CREATE TABLE" +
+            "CREATE TABLE " +
                     PARTIDA_TABLE_NAME +
                     "( " +
                     PARTIDA_COLUMN_ID + " integer primary key, " +

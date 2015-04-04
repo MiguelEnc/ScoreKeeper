@@ -3,19 +3,18 @@ package com.example.miguel.scorekeeper;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
 
 
 /**
@@ -23,7 +22,6 @@ import android.widget.EditText;
  */
 public class RegistrarEquipo extends android.support.v4.app.Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
-    Context context = this.getActivity();
 
     public RegistrarEquipo() {
         // Required empty public constructor
@@ -39,27 +37,27 @@ public class RegistrarEquipo extends android.support.v4.app.Fragment {
         Button buttonSave = (Button) v.findViewById(R.id.buttonSaveEquipo);
         Button buttonCancel = (Button) v.findViewById(R.id.buttonCancelEquipo);
         final EditText editTextNombre = (EditText) v.findViewById(R.id.editTextNombreEquipo);
-        final EditText editTextDesc = (EditText) v.findViewById(R.id.editTextDescEquipo);
+        final EditText editTextDescrip = (EditText) v.findViewById(R.id.editTextDescEquipo);
 
         final String textoNombre = editTextNombre.getText().toString();
-        final String textoDescrip = editTextDesc.getText().toString();
+        final String textoDescrip = editTextDescrip.getText().toString();
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 //Guardando los datos en la base de datos
-                DBConnection connection = new DBConnection(context);
+                DBConnection connection = new DBConnection(RegistrarEquipo.this.getActivity());
                 connection.insertTeam(textoNombre, textoDescrip);
 
                 //Alert dialog, Equipo registrado.
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(RegistrarEquipo.this.getActivity());
                 builder1.setMessage("Equipo agregado.");
                 builder1.setPositiveButton("Ok",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
-                                editTextDesc.setText("");
+                                editTextDescrip.setText("");
                                 editTextNombre.setText("");
                             }
                         });
@@ -72,14 +70,13 @@ public class RegistrarEquipo extends android.support.v4.app.Fragment {
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editTextDesc.setText("");
+                editTextDescrip.setText("");
                 editTextNombre.setText("");
 
                 //ir al Main Activity
                 Intent intent = new Intent(v.getContext(), MainActivity.class);
                 v.getContext().startActivity(intent);
                 getActivity().finish();
-
             }
         });
 

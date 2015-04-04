@@ -23,7 +23,6 @@ import java.util.List;
 public class RegistrarPartida extends android.support.v4.app.Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
-    Context context = this.getActivity();
 
     public RegistrarPartida() {
         // Required empty public constructor
@@ -42,7 +41,7 @@ public class RegistrarPartida extends android.support.v4.app.Fragment {
         Spinner spinnerJuegos = (Spinner) v.findViewById(R.id.spinnerJuego);
 
         //Coneccion a la base de datos
-        DBConnection connection = new DBConnection(context);
+        DBConnection connection = new DBConnection(RegistrarPartida.this.getActivity());
 
         //Lista de juegos a mostrar
         spinnerJuegos.setAdapter(listaJuegos(connection));
@@ -95,7 +94,7 @@ public class RegistrarPartida extends android.support.v4.app.Fragment {
 
         //crea el adapter para llenar el spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                context,
+                RegistrarPartida.this.getActivity(),
                 android.R.layout.simple_spinner_item,
                 lista
         );
@@ -120,7 +119,7 @@ public class RegistrarPartida extends android.support.v4.app.Fragment {
 
         //crea el adapter para llenar el spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                context,
+                RegistrarPartida.this.getActivity(),
                 android.R.layout.simple_spinner_item,
                 lista
         );
