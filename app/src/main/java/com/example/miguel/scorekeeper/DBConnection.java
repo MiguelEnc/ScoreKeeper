@@ -245,19 +245,20 @@ public class DBConnection extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
                 "SELECT nombre FROM " +
-                        GAME_TABLE_NAME + " WHERE " +
-                        GAME_COLUMN_NAME + " = ?",
-                new String[] {nombre}
+                GAME_TABLE_NAME + " WHERE " +
+                GAME_COLUMN_NAME + " = ?",
+            new String[] {nombre}
         );
 
-        if (cursor != null){
-            //este juego ya esta registrado
-            return true;
-        }
-        else{
+        if (cursor.getCount() <= 0){
             //este juego no esta registrado
             return false;
         }
+        else{
+            //este juego si esta registrado
+            return true;
+        }
+
     }
 
     public Boolean teamExists(String equipo){
@@ -269,13 +270,13 @@ public class DBConnection extends SQLiteOpenHelper{
                 new String[] {equipo}
         );
 
-        if (cursor != null){
-            //este juego ya esta registrado
-            return true;
-        }
-        else{
+        if (cursor.getCount() <= 0){
             //este juego no esta registrado
             return false;
+        }
+        else{
+            //este juego si esta registrado
+            return true;
         }
     }
 }

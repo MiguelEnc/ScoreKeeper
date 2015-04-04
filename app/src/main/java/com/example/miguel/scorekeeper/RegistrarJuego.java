@@ -53,6 +53,7 @@ public class RegistrarJuego extends android.support.v4.app.Fragment {
                     if(connection.gameExists(editTextNombre.getText().toString())){
                         //el juego ya existe
                         crearAlertDialog("El juego ya existe.");
+                        editTextNombre.setText("");
                     }else {
                         //el juego no existe, guardar
                         connection.insertGame(editTextNombre.getText().toString(), editTextDescrip.getText().toString());
