@@ -239,4 +239,43 @@ public class DBConnection extends SQLiteOpenHelper{
 
         return partida;
     }
+
+    public Boolean gameExists(String nombre){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT nombre FROM " +
+                        GAME_TABLE_NAME + " WHERE " +
+                        GAME_COLUMN_NAME + " = ?",
+                new String[] {nombre}
+        );
+
+        if (cursor != null){
+            //este juego ya esta registrado
+            return true;
+        }
+        else{
+            //este juego no esta registrado
+            return false;
+        }
+    }
+
+    public Boolean teamExists(String equipo){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT nombre FROM " +
+                        TEAM_TABLE_NAME + " WHERE " +
+                        TEAM_COLUMN_NAME + " = ?",
+                new String[] {equipo}
+        );
+
+        if (cursor != null){
+            //este juego ya esta registrado
+            return true;
+        }
+        else{
+            //este juego no esta registrado
+            return false;
+        }
+    }
 }

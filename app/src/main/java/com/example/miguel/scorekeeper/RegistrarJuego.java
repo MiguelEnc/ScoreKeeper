@@ -47,24 +47,23 @@ public class RegistrarJuego extends android.support.v4.app.Fragment {
 
                 //Guardando los datos en la base de datos
                 DBConnection connection = new DBConnection(RegistrarJuego.this.getActivity());
-                if(editTextNombre.getText().toString() != "" || editTextDescrip.getText().toString() != "")
-                    connection.insertGame(editTextNombre.getText().toString(), editTextDescrip.getText().toString());
+                if(editTextNombre.getText().toString() != "" || editTextDescrip.getText().toString() != "") {
 
-                //Alert dialog, Juego registrado.
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(RegistrarJuego.this.getActivity());
-                builder1.setMessage("Juego agregado.");
-                builder1.setPositiveButton("Ok",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                                editTextDescrip.setText("");
-                                editTextNombre.setText("");
-                            }
-                        });
-
-                AlertDialog alert11 = builder1.create();
-                alert11.show();
-
+                    //comprobando si el nombre ya existe en la base de datos
+                    if(connection.gameExists(editTextNombre.getText().toString())){
+                        //el juego ya existe
+                        crearAlertDialog("El juego ya existe.");
+                    }else {
+                        //el juego no existe, guardar
+                        connection.insertGame(editTextNombre.getText().toString(), editTextDescrip.getText().toString());
+                        crearAlertDialog("Juego agregado.");
+                        editTextDescrip.setText("");
+                        editTextNombre.setText("");
+                    }
+                }else{
+                    Toast.makeText(RegistrarJuego.this.getActivity(),
+                            "Llenar campos.", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -86,6 +85,21 @@ public class RegistrarJuego extends android.support.v4.app.Fragment {
                 .setActionBarTitle(getString(R.string.title_section2));
 
         return v;
+    }
+
+    //crea AlertDialog con el texto de parametro
+    private void crearAlertDialog(String texto){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(RegistrarJuego.this.getActivity());
+        builder1.setMessage(texto);
+        builder1.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 
     @Override

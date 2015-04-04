@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.support.v4.app.FragmentManager;
+import android.widget.Toast;
 
 
 /**
@@ -45,23 +46,23 @@ public class RegistrarEquipo extends android.support.v4.app.Fragment {
 
                 //Guardando los datos en la base de datos
                 DBConnection connection = new DBConnection(RegistrarEquipo.this.getActivity());
-                if(editTextNombre.getText().toString() != "" || editTextDescrip.getText().toString() != "")
-                    connection.insertTeam(editTextNombre.getText().toString(), editTextDescrip.getText().toString());
+                if(editTextNombre.getText().toString() != "" || editTextDescrip.getText().toString() != "") {
 
-                //Alert dialog, Equipo registrado.
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(RegistrarEquipo.this.getActivity());
-                builder1.setMessage("Equipo agregado.");
-                builder1.setPositiveButton("Ok",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                                editTextDescrip.setText("");
-                                editTextNombre.setText("");
-                            }
-                        });
-
-                AlertDialog alert11 = builder1.create();
-                alert11.show();
+                    //comprobando si el nombre ya existe en la base de datos
+                    if(connection.teamExists(editTextNombre.getText().toString())){
+                        //el equipo ya existe
+                        crearAlertDialog("El equipo ya existe.");
+                    }else {
+                        //el juego no existe, guardar
+                        connection.insertTeam(editTextNombre.getText().toString(), editTextDescrip.getText().toString());
+                        crearAlertDialog("Equipo agregado.");
+                        editTextDescrip.setText("");
+                        editTextNombre.setText("");
+                    }
+                }else{
+                    Toast.makeText(RegistrarEquipo.this.getActivity(),
+                            "Llenar campos.", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -83,6 +84,21 @@ public class RegistrarEquipo extends android.support.v4.app.Fragment {
                 .setActionBarTitle(getString(R.string.title_section3));
 
         return v;
+    }
+
+    //crea AlertDialog con el texto de parametro
+    private void crearAlertDialog(String texto){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(RegistrarEquipo.this.getActivity());
+        builder1.setMessage(texto);
+        builder1.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 
     @Override
