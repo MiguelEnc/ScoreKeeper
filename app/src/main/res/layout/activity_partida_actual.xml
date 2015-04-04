@@ -122,8 +122,7 @@
                 android:ems="10"
                 android:id="@+id/editTextEquipoA"
                 android:textSize="30dp"
-                android:layout_marginLeft="30dp"
-                android:enabled="false" />
+                android:layout_marginLeft="30dp" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -138,8 +137,7 @@
                 android:ems="10"
                 android:id="@+id/editTextEquipoB"
                 android:textSize="30dp"
-                android:layout_marginRight="30dp"
-                android:enabled="false" />
+                android:layout_marginRight="30dp" />
         </LinearLayout>
 
         <RelativeLayout
@@ -149,9 +147,9 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Insertar PuntosA"
-                android:id="@+id/buttonAceptarA"
-                android:textSize="10dp"
+                android:text="Insertar PuntosB"
+                android:id="@+id/buttonAceptarB"
+                android:textSize="15dp"
                 android:onClick="setContentView"
                 android:singleLine="false"
                 android:layout_alignParentTop="true"
@@ -161,9 +159,9 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Insertar PuntosB"
-                android:id="@+id/buttonAceptarB"
-                android:textSize="10dp"
+                android:text="Insertar PuntosA"
+                android:id="@+id/buttonAceptarA"
+                android:textSize="15dp"
                 android:onClick="setContentView"
                 android:singleLine="false"
                 android:layout_marginRight="30dp" />
