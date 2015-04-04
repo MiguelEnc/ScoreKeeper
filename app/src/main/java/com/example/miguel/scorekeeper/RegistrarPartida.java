@@ -2,13 +2,16 @@ package com.example.miguel.scorekeeper;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -36,8 +39,8 @@ public class RegistrarPartida extends android.support.v4.app.Fragment {
         View v = inflater.inflate(R.layout.fragment_registrar_partida, container, false);
 
         Button buttonIniciar = (Button) v.findViewById(R.id.buttonIniciarPartida);
-        Spinner spinnerEquipoA = (Spinner) v.findViewById(R.id.spinnerEquipoA);
-        Spinner spinnerEquipoB = (Spinner) v.findViewById(R.id.spinnerEquipoB);
+        final Spinner spinnerEquipoA = (Spinner) v.findViewById(R.id.spinnerEquipoA);
+        final Spinner spinnerEquipoB = (Spinner) v.findViewById(R.id.spinnerEquipoB);
         Spinner spinnerJuegos = (Spinner) v.findViewById(R.id.spinnerJuego);
 
         //Coneccion a la base de datos
@@ -52,15 +55,30 @@ public class RegistrarPartida extends android.support.v4.app.Fragment {
         //Lista de equipos a mostrar
         spinnerEquipoB.setAdapter(listaEquipos(connection));
 
-
         buttonIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Comprobacion de equipos iguales
+                if(spinnerEquipoA.getSelectedItem().toString() != spinnerEquipoB.getSelectedItem().toString()){
+                    //ir a partida actual
+                    Intent intent = new Intent(v.getContext(), PartidaActual.class);
+                    v.getContext().startActivity(intent);
+                    getActivity().finish();
+                }else {
+                    //Alert dialog: Equipos iguales, cambiar.
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(RegistrarPartida.this.getActivity());
+                    builder1.setMessage("Equipos iguales, seleccione otro");
+                    builder1.setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
 
-                //ir a partida actual
-                Intent intent = new Intent(v.getContext(), PartidaActual.class);
-                v.getContext().startActivity(intent);
-                getActivity().finish();
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+                }
+
             }
         });
 
