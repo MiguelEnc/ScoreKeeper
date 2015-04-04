@@ -53,13 +53,21 @@ public class RegistrarEquipo extends android.support.v4.app.Fragment {
 
                 }else{
                     //comprobando si el nombre ya existe en la base de datos
-                    if(connection.teamExists(editTextNombre.getText().toString())){
+
+                    String helpNombre = editTextNombre.getText().toString().toLowerCase();
+                    String helpDesc = editTextDescrip.getText().toString().toLowerCase();
+
+                    helpNombre = Character.toUpperCase(helpNombre.charAt(0)) + helpNombre.substring(1);
+                    helpDesc = Character.toUpperCase(helpDesc.charAt(0)) + helpDesc.substring(1);
+
+                    if(connection.teamExists(helpNombre)){
                         //el equipo ya existe
                         crearAlertDialog("El equipo ya existe.");
                         editTextNombre.setText("");
+                        editTextDescrip.setText("");
                     }else {
                         //el juego no existe, guardar
-                        connection.insertTeam(editTextNombre.getText().toString(), editTextDescrip.getText().toString());
+                        connection.insertTeam(helpNombre, helpDesc);
                         crearAlertDialog("Equipo agregado.");
                         editTextDescrip.setText("");
                         editTextNombre.setText("");

@@ -42,11 +42,11 @@ public class MainActivity extends ActionBarActivity
         setContentView(R.layout.activity_main);
 
         //comprobando que se deba actualizar
-        Intent intent = getIntent();
+        /*Intent intent = getIntent();
 
         if(intent.getStringExtra("Actualizar").matches("si")){
             //se puede actualizar
-        }
+        }*/
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
