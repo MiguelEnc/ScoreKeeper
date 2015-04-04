@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -173,8 +174,8 @@ public class DBConnection extends SQLiteOpenHelper{
     private Juego cursorToGames(Cursor cursor){
         Juego juego = new Juego();
 
-        juego.setNombre(cursor.getString(0));
-        juego.setDescripcion(cursor.getString(1));
+        juego.setNombre(cursor.getString(1));
+        juego.setDescripcion(cursor.getString(2));
 
         return juego;
     }
@@ -202,8 +203,8 @@ public class DBConnection extends SQLiteOpenHelper{
     private Equipo cursorToEquipos(Cursor cursor){
         Equipo equipo = new Equipo();
 
-        equipo.setNombre(cursor.getString(0));
-        equipo.setDescripcion(cursor.getString(1));
+        equipo.setNombre(cursor.getString(1));
+        equipo.setDescripcion(cursor.getString(2));
 
         return equipo;
     }

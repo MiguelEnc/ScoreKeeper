@@ -39,16 +39,14 @@ public class RegistrarEquipo extends android.support.v4.app.Fragment {
         final EditText editTextNombre = (EditText) v.findViewById(R.id.editTextNombreEquipo);
         final EditText editTextDescrip = (EditText) v.findViewById(R.id.editTextDescEquipo);
 
-        final String textoNombre = editTextNombre.getText().toString();
-        final String textoDescrip = editTextDescrip.getText().toString();
-
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 //Guardando los datos en la base de datos
                 DBConnection connection = new DBConnection(RegistrarEquipo.this.getActivity());
-                connection.insertTeam(textoNombre, textoDescrip);
+                if(editTextNombre.getText().toString() != "" || editTextDescrip.getText().toString() != "")
+                    connection.insertTeam(editTextNombre.getText().toString(), editTextDescrip.getText().toString());
 
                 //Alert dialog, Equipo registrado.
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(RegistrarEquipo.this.getActivity());

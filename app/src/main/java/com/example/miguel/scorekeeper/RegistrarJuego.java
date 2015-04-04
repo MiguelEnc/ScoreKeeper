@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,17 +41,14 @@ public class RegistrarJuego extends android.support.v4.app.Fragment {
         final EditText editTextNombre = (EditText) v.findViewById(R.id.editTextNombreJuego);
         final EditText editTextDescrip = (EditText) v.findViewById(R.id.editTextDescJuego);
 
-        final String textoNombre = editTextNombre.getText().toString();
-        final String textoDescrip = editTextDescrip.getText().toString();
-
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 //Guardando los datos en la base de datos
                 DBConnection connection = new DBConnection(RegistrarJuego.this.getActivity());
-                connection.insertGame(textoNombre, textoDescrip);
-
+                if(editTextNombre.getText().toString() != "" || editTextDescrip.getText().toString() != "")
+                    connection.insertGame(editTextNombre.getText().toString(), editTextDescrip.getText().toString());
 
                 //Alert dialog, Juego registrado.
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(RegistrarJuego.this.getActivity());

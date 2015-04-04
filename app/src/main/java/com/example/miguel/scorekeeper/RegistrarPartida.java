@@ -56,14 +56,6 @@ public class RegistrarPartida extends android.support.v4.app.Fragment {
         buttonIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: llevar a PartidaEnCurso
-            }
-        });
-
-
-        buttonIniciar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
                 //ir a partida actual
                 Intent intent = new Intent(v.getContext(), PartidaActual.class);
