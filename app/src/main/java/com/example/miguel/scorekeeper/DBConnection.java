@@ -231,11 +231,11 @@ public class DBConnection extends SQLiteOpenHelper{
     private Partida cursorToPartidas(Cursor cursor){
         Partida partida = new Partida();
 
-        partida.setJuego(cursor.getString(0));
-        partida.setEquipo_A(cursor.getString(1));
-        partida.setEquipo_B(cursor.getString(2));
-        partida.setPuntaje_equipo_A(cursor.getInt(3));
-        partida.setPuntaje_equipo_B(cursor.getInt(4));
+        partida.setJuego(cursor.getString(1));
+        partida.setEquipo_A(cursor.getString(2));
+        partida.setEquipo_B(cursor.getString(3));
+        partida.setPuntaje_equipo_A(cursor.getInt(4));
+        partida.setPuntaje_equipo_B(cursor.getInt(5));
 
         return partida;
     }

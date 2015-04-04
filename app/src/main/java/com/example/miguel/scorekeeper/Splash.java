@@ -38,7 +38,7 @@ public class Splash extends Activity {
                 // TODO Auto-generated method stub
 
                 Intent i = new Intent(Splash.this, MainActivity.class);
-
+                i.putExtra("Actualizar", "si");
                 startActivity(i);
 
                 this.finish();

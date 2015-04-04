@@ -53,7 +53,6 @@ public class RegistrarJuego extends android.support.v4.app.Fragment {
                             "Llenar campos.", Toast.LENGTH_LONG).show();
 
                 }else {
-
                     //comprobando si el nombre ya existe en la base de datos
                     if (connection.gameExists(editTextNombre.getText().toString())) {
                         //el juego ya existe

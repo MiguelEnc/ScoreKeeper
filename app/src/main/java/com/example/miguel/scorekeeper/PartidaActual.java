@@ -28,9 +28,9 @@ public class PartidaActual extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_partida_actual);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
 
-        DBConnection connection = new DBConnection(PartidaActual.this);
+        final DBConnection connection = new DBConnection(PartidaActual.this);
 
         Button buttonFinalizar = (Button) findViewById(R.id.buttonFinalizar);
         Button buttonAceptarA = (Button) findViewById(R.id.buttonAceptarA);
@@ -42,7 +42,7 @@ public class PartidaActual extends ActionBarActivity {
 
         TextView textViewJuego = (TextView) findViewById(R.id.textViewJuego);
         TextView textViewEquipoA = (TextView) findViewById(R.id.textViewEquipoA);
-        TextView textViewEquipoB = (TextView) findViewById(R.id.textViewEquipoB);
+        final TextView textViewEquipoB = (TextView) findViewById(R.id.textViewEquipoB);
 
         //Asignando nombres a los textViews
         textViewJuego.setText(intent.getStringExtra("juego"));
@@ -61,32 +61,18 @@ public class PartidaActual extends ActionBarActivity {
 
                 if (editTextEquipoA.getText().toString().isEmpty()) {
 
-                    //Alert dialog, Equipo registrado.
-                    AlertDialog.Builder builder1 = new AlertDialog.Builder(PartidaActual.this);
-                    builder1.setMessage("No hay datos.");
-                    builder1.setPositiveButton("Ok",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                    editTextEquipoA.setText("");
-                                    editTextEquipoB.setText("");
-                                }
-                            });
-
-                    AlertDialog alert11 = builder1.create();
-                    alert11.show();
+                    crearAlertDialog("No hay datos.");
+                    editTextEquipoA.setText("");
+                    editTextEquipoB.setText("");
 
                 }else{
-
                     String ayudaA = editTextEquipoA.getText().toString();
                     helpA = Integer.parseInt(ayudaA);
                     puntosA += helpA;
                     textViewPuntosA.setText("");
                     textViewPuntosA.setText("" + puntosA);
                     editTextEquipoA.setText("");
-
                 }
-
             }
         });
 
@@ -98,23 +84,11 @@ public class PartidaActual extends ActionBarActivity {
 
                 if(editTextEquipoB.getText().toString().isEmpty()){
 
-                    //Alert dialog, Equipo registrado.
-                    AlertDialog.Builder builder1 = new AlertDialog.Builder(PartidaActual.this);
-                    builder1.setMessage("No hay datos.");
-                    builder1.setPositiveButton("Ok",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                    editTextEquipoA.setText("");
-                                    editTextEquipoB.setText("");
-                                }
-                            });
-
-                    AlertDialog alert11 = builder1.create();
-                    alert11.show();
+                    crearAlertDialog("No hay datos.");
+                    editTextEquipoA.setText("");
+                    editTextEquipoB.setText("");
 
                 }else{
-
                     String ayudaB = editTextEquipoB.getText().toString();
                     helpB = Integer.parseInt(ayudaB);
                     puntosB += helpB;
@@ -122,24 +96,43 @@ public class PartidaActual extends ActionBarActivity {
                     textViewPuntosB.setText(""+puntosB);
                     editTextEquipoB.setText("");
                 }
-
-
-
             }
         });
 
         buttonFinalizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 editTextEquipoA.setText("");
                 editTextEquipoB.setText("");
 
+                connection.insertPartida(
+                        intent.getStringExtra("juego"),
+                        intent.getStringExtra("equipoA"),
+                        intent.getStringExtra("equipoB"),
+                        puntosA,
+                        puntosB
+                );
+
                 //ir al Main Activity
                 Intent intent = new Intent(PartidaActual.this, MainActivity.class);
+                intent.putExtra("Actualizar", "si");
                 v.getContext().startActivity(intent);
             }
         });
     }
 
+    //crea AlertDialog con el texto de parametro
+    private void crearAlertDialog(String texto){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(PartidaActual.this);
+        builder1.setMessage(texto);
+        builder1.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
 }

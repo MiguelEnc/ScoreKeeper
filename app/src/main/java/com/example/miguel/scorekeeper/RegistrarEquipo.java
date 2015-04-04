@@ -56,6 +56,7 @@ public class RegistrarEquipo extends android.support.v4.app.Fragment {
                     if(connection.teamExists(editTextNombre.getText().toString())){
                         //el equipo ya existe
                         crearAlertDialog("El equipo ya existe.");
+                        editTextNombre.setText("");
                     }else {
                         //el juego no existe, guardar
                         connection.insertTeam(editTextNombre.getText().toString(), editTextDescrip.getText().toString());
