@@ -41,7 +41,7 @@ public class PartidaActual extends ActionBarActivity {
         final TextView textViewPuntosB = (TextView)findViewById(R.id.textViewPuntosB);
 
         TextView textViewJuego = (TextView) findViewById(R.id.textViewJuego);
-        TextView textViewEquipoA = (TextView) findViewById(R.id.textViewEquipoA);
+        final TextView textViewEquipoA = (TextView) findViewById(R.id.textViewEquipoA);
         final TextView textViewEquipoB = (TextView) findViewById(R.id.textViewEquipoB);
 
         //Asignando nombres a los textViews
@@ -115,10 +115,63 @@ public class PartidaActual extends ActionBarActivity {
                         puntosB
                 );
 
-                //ir al Main Activity
-                Intent intent = new Intent(PartidaActual.this, MainActivity.class);
-                intent.putExtra("Actualizar", "si");
-                v.getContext().startActivity(intent);
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(PartidaActual.this);
+
+
+                if (puntosA > puntosB){
+                    builder1.setMessage("El ganador es: "+ textViewEquipoA.getText().toString() +"!");
+                    builder1.setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //ir al Main Activity
+                                    Intent intent = new Intent(PartidaActual.this, MainActivity.class);
+                                    intent.putExtra("Actualizar", "si");
+                                    startActivity(intent);
+
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+                }else if (puntosB > puntosA){
+                    builder1.setMessage("El ganador es: "+ textViewEquipoB.getText().toString() +"!");
+                    builder1.setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //ir al Main Activity
+                                    Intent intent = new Intent(PartidaActual.this, MainActivity.class);
+                                    intent.putExtra("Actualizar", "si");
+                                    startActivity(intent);
+
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+
+                }else if (puntosA == puntosB){
+
+                    builder1.setMessage("Es un empate!");
+                    builder1.setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //ir al Main Activity
+                                    Intent intent = new Intent(PartidaActual.this, MainActivity.class);
+                                    intent.putExtra("Actualizar", "si");
+                                    startActivity(intent);
+
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+
+                }
+
+
             }
         });
     }
