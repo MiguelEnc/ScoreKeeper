@@ -10,12 +10,14 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,23 +58,41 @@ public class RegistrarPartida extends android.support.v4.app.Fragment {
         //Lista de equipos a mostrar
         spinnerEquipoB.setAdapter(listaEquipos(connection));
 
-        buttonIniciar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        buttonIniciar.setOnClickListener(new View.OnClickListener()
+
+            {
+                @Override
+                public void onClick (View v){
 
                 //Comprobacion de equipos iguales
-                if(!spinnerEquipoA.getSelectedItem().toString().matches(spinnerEquipoB.getSelectedItem().toString())){
+                if (spinnerEquipoA.getCount() == 0 || spinnerEquipoB.getCount() == 0 || spinnerJuegos.getCount() == 0) {
+
+                    //Alert dialog: No hay registros.
+                    AlertDialog.Builder builder2 = new AlertDialog.Builder(RegistrarPartida.this.getActivity());
+                    builder2.setMessage("No hay registros, necesita crear equipos o juegos.");
+                    builder2.setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alert12 = builder2.create();
+                    alert12.show();
+
+                } else if (!spinnerEquipoA.getSelectedItem().toString().matches(spinnerEquipoB.getSelectedItem().toString())) {
+
                     //ir a partida actual
                     Intent intent = new Intent(v.getContext(), PartidaActual.class);
 
                     //llevando los datos de los equipos y el juego
-                    intent.putExtra("juego",spinnerJuegos.getSelectedItem().toString());
-                    intent.putExtra("equipoA",spinnerEquipoA.getSelectedItem().toString());
-                    intent.putExtra("equipoB",spinnerEquipoB.getSelectedItem().toString());
+                    intent.putExtra("juego", spinnerJuegos.getSelectedItem().toString());
+                    intent.putExtra("equipoA", spinnerEquipoA.getSelectedItem().toString());
+                    intent.putExtra("equipoB", spinnerEquipoB.getSelectedItem().toString());
 
                     v.getContext().startActivity(intent);
                     getActivity().finish();
-                }else {
+                } else {
                     //Alert dialog: Equipos iguales, cambiar.
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(RegistrarPartida.this.getActivity());
                     builder1.setMessage("Equipos iguales, seleccione otro");
@@ -90,15 +110,15 @@ public class RegistrarPartida extends android.support.v4.app.Fragment {
             }
         });
 
-        //Aqui se cambia el titulo del fragment
-        ((MainActivity) getActivity())
-                .setActionBarTitle(getString(R.string.title_section4));
+            //Aqui se cambia el titulo del fragment
+            ((MainActivity) getActivity())
+                    .setActionBarTitle(getString(R.string.title_section4));
 
-        return v;
-    }
+            return v;
+        }
 
 
-    private ArrayAdapter<String> listaJuegos(DBConnection connection){
+        private ArrayAdapter<String> listaJuegos(DBConnection connection){
         ArrayList<String> lista = new ArrayList<>();
 
         //Carga todos los juegos de la base de datos
