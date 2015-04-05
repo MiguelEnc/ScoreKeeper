@@ -209,12 +209,12 @@ public class DBConnection extends SQLiteOpenHelper{
         return equipo;
     }
 
-    public List<Partida> getAllPartidas(){
+    public List<Partida> getAllPartidas(String juego){
         List<Partida> partidas = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(PARTIDA_TABLE_NAME, ALL_COLUMNS_PARTIDA, null, null, null, null, null);
+        Cursor cursor = db.query(PARTIDA_TABLE_NAME, ALL_COLUMNS_PARTIDA, "juego = ?", new String[] {juego}, null, null, null);
 
         cursor.moveToFirst();
 

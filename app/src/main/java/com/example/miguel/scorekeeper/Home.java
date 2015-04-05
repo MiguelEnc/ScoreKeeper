@@ -6,11 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import com.example.miguel.scorekeeper.MainActivity;
-import com.example.miguel.scorekeeper.R;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,14 +42,40 @@ public class Home extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        //Creando partida default
         DBConnection connection = new DBConnection(Home.this.getActivity());
+
+        Spinner spinnerJuegos = (Spinner) rootView.findViewById(R.id.spinnerJuegosHome);
+        final ListView listaPartidas = (ListView) rootView.findViewById(R.id.listViewPartidas);
+
+        //Lista de juegos a mostrar
+        spinnerJuegos.setAdapter(listaJuegos(connection));
+
+        //OnItemSelectedListener for Spinner
+        spinnerJuegos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String item = parent.getItemAtPosition(position).toString();
+                listaPartidas.setAdapter(adapterList(item));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        listaPartidas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String item = parent.getItemAtPosition(position).toString();
+                //item es la opcion que se presiono en el ListView
+            }
+        });
+
+        //Creando partida default
         if(!connection.partidaExists("juego a", "prueba a", "prueba b")){
             connection.insertPartida("juego a", "prueba a", "prueba b", 3, 2);
         }
-
-        ListView listaPartidas = (ListView) rootView.findViewById(R.id.listViewPartidas);
-        listaPartidas.setAdapter(adapterList());
 
         //Aqui se cambia el titulo del fragment
         ((MainActivity) getActivity())
@@ -59,26 +84,50 @@ public class Home extends Fragment {
         return rootView;
     }
 
-    private ArrayAdapter<String> adapterList(){
+    private ArrayAdapter<String> listaJuegos(DBConnection connection){
+        ArrayList<String> lista = new ArrayList<>();
+
+        //Carga todos los juegos de la base de datos
+        List<Juego> juegos = connection.getAllGames();
+
+        //llena la lista con los nombres de los juegos
+        for(int i = 0; i < juegos.size(); i++){
+            Juego juego = juegos.get(i);
+            lista.add(juego.getNombre().toString());
+        }
+
+        //crea el adapter para llenar el spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                Home.this.getActivity(),
+                android.R.layout.simple_spinner_item,
+                lista
+        );
+
+        //asigna la forma en la que se presentaran los datos
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        return adapter;
+    }
+
+    private ArrayAdapter<String> adapterList(String juego){
         DBConnection connection = new DBConnection(Home.this.getActivity());
-        List<Partida> partidas = connection.getAllPartidas();
+        List<Partida> partidas = connection.getAllPartidas(juego);
         List<String> items = new ArrayList<>();
 
-                for(int i = 0; i < partidas.size(); i++){
-                    Partida partida = partidas.get(i);
-                    items.add(
-                            partida.getJuego() + "\n" +
-                                    partida.getEquipo_A() + " : " +
-                                    partida.getPuntajeEquipoA() + "\n" +
-                                    partida.getEquipo_B() + " : " +
-                                    partida.getPuntajeEquipoB()
-                    );
-                }
+        for(int i = 0; i < partidas.size(); i++){
+            Partida partida = partidas.get(i);
+            items.add(
+                    partida.getEquipo_A() + " : " +
+                    partida.getPuntajeEquipoA() + "\n" +
+                    partida.getEquipo_B() + " : " +
+                    partida.getPuntajeEquipoB()
+            );
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                        Home.this.getActivity(),
-                        android.R.layout.simple_list_item_1,
-                        items
+                Home.this.getActivity(),
+                android.R.layout.simple_list_item_1,
+                items
         );
 
         return adapter;
