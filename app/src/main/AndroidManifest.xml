@@ -31,6 +31,14 @@
             android:name=".PartidaActual"
             android:label="@string/title_activity_partida_actual" >
         </activity>
+        <activity
+            android:name=".listajugadas"
+            android:label="@string/title_activity_listajugadas" >
+        </activity>
+        <activity
+            android:name=".ListaJugadas"
+            android:label="@string/title_activity_lista_jugadas" >
+        </activity>
     </application>
 
 </manifest>
