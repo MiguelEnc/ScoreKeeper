@@ -52,6 +52,8 @@ public class PartidaActual extends ActionBarActivity {
         editTextEquipoA.setText("");
         editTextEquipoB.setText("");
 
+        //Cantidad de partidas creadas al momento
+        final int numeroDePartidas = connection.getCantidadDePartidas();
 
         buttonAceptarA.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +70,13 @@ public class PartidaActual extends ActionBarActivity {
                 }else{
                     String ayudaA = editTextEquipoA.getText().toString();
                     helpA = Integer.parseInt(ayudaA);
+                    connection.insertDetalle(
+                            numeroDePartidas + 1,
+                            intent.getStringExtra("equipoA"),
+                            intent.getStringExtra("equipoB"),
+                            ayudaA,
+                            "0"
+                    );
                     puntosA += helpA;
                     textViewPuntosA.setText("");
                     textViewPuntosA.setText("" + puntosA);
@@ -91,6 +100,13 @@ public class PartidaActual extends ActionBarActivity {
                 }else{
                     String ayudaB = editTextEquipoB.getText().toString();
                     helpB = Integer.parseInt(ayudaB);
+                    connection.insertDetalle(
+                            numeroDePartidas + 1,
+                            intent.getStringExtra("equipoA"),
+                            intent.getStringExtra("equipoB"),
+                            "0",
+                            ayudaB
+                    );
                     puntosB += helpB;
                     textViewPuntosB.setText("");
                     textViewPuntosB.setText(""+puntosB);

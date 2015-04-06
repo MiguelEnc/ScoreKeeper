@@ -37,6 +37,13 @@ public class DBConnection extends SQLiteOpenHelper{
     private static final String PARTIDA_COLUMN_PUNTAJE_A = "puntosEquipoA";
     private static final String PARTIDA_COLUMN_PUNTAJE_B = "puntosEquipoB";
 
+    private static final String DETALLE_TABLE_NAME = "detalle";
+    private static final String DETALLE_COLUMN_ID = "id";
+    private static final String DETALLE_COLUMN_EQUIPO_A = "equipoA";
+    private static final String DETALLE_COLUMN_EQUIPO_B = "equipoB";
+    private static final String DETALLE_COLUMN_PUNTOS_A = "puntosA";
+    private static final String DETALLE_COLUMN_PUNTOS_B = "puntosB";
+
     public static final String[] ALL_COLUMNS_GAME = new String[] {
             GAME_COLUMN_ID,
             GAME_COLUMN_NAME,
@@ -56,6 +63,14 @@ public class DBConnection extends SQLiteOpenHelper{
             PARTIDA_COLUMN_EQUIPO_B,
             PARTIDA_COLUMN_PUNTAJE_A,
             PARTIDA_COLUMN_PUNTAJE_B
+    };
+
+    public static final String[] ALL_COLUMNS_DETALLE = new String[] {
+            DETALLE_COLUMN_ID,
+            DETALLE_COLUMN_EQUIPO_A,
+            DETALLE_COLUMN_EQUIPO_B,
+            DETALLE_COLUMN_PUNTOS_A,
+            DETALLE_COLUMN_PUNTOS_B
     };
 
     public static final String CREATE_GAME_TABLE =
@@ -88,6 +103,17 @@ public class DBConnection extends SQLiteOpenHelper{
                     PARTIDA_COLUMN_PUNTAJE_B + " integer " +
                     ")";
 
+    public static final String CREATE_DETALLE_TABLE =
+            "CREATE TABLE " +
+                    DETALLE_TABLE_NAME +
+                    "( " +
+                    DETALLE_COLUMN_ID + " integer, " +
+                    DETALLE_COLUMN_EQUIPO_A + " text, " +
+                    DETALLE_COLUMN_EQUIPO_B + " text, " +
+                    DETALLE_COLUMN_PUNTOS_A + " text, " +
+                    DETALLE_COLUMN_PUNTOS_B + " text " +
+                    ")";
+
     public DBConnection(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -97,6 +123,7 @@ public class DBConnection extends SQLiteOpenHelper{
         db.execSQL(CREATE_GAME_TABLE);
         db.execSQL(CREATE_TEAM_TABLE);
         db.execSQL(CREATE_PARTIDA_TABLE);
+        db.execSQL(CREATE_DETALLE_TABLE);
     }
 
     @Override
@@ -104,6 +131,7 @@ public class DBConnection extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXISTS " + GAME_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + TEAM_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + PARTIDA_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DETALLE_TABLE_NAME);
         onCreate(db);
     }
 
@@ -151,6 +179,19 @@ public class DBConnection extends SQLiteOpenHelper{
         db.insert(PARTIDA_TABLE_NAME, null, values);
     }
 
+    public void insertDetalle(Integer id, String equipoA, String equipoB, String puntosA, String puntosB){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(DETALLE_COLUMN_ID, id);
+        values.put(DETALLE_COLUMN_EQUIPO_A, equipoA);
+        values.put(DETALLE_COLUMN_EQUIPO_B, equipoB);
+        values.put(DETALLE_COLUMN_PUNTOS_A, puntosA);
+        values.put(DETALLE_COLUMN_PUNTOS_B, puntosB);
+
+        db.insert(DETALLE_TABLE_NAME, null, values);
+    }
 
     public List<Juego> getAllGames(){
         List<Juego> juegos = new ArrayList<>();
@@ -214,7 +255,15 @@ public class DBConnection extends SQLiteOpenHelper{
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(PARTIDA_TABLE_NAME, ALL_COLUMNS_PARTIDA, "juego = ?", new String[] {juego}, null, null, null);
+        Cursor cursor = db.query(
+                PARTIDA_TABLE_NAME,
+                ALL_COLUMNS_PARTIDA,
+                "juego = ?",
+                new String[] {juego},
+                null,
+                null,
+                null
+        );
 
         cursor.moveToFirst();
 
@@ -238,6 +287,60 @@ public class DBConnection extends SQLiteOpenHelper{
         partida.setPuntaje_equipo_B(cursor.getInt(5));
 
         return partida;
+    }
+
+    public ArrayList<String> getDetalleDePartidaByID(Integer id){
+        ArrayList<String> lista = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(
+                DETALLE_TABLE_NAME,
+                ALL_COLUMNS_DETALLE,
+                "id = ?",
+                new String[] {String.valueOf(id)},
+                null,
+                null,
+                null
+        );
+
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast()){
+            String partida = cursorToDetalle(cursor);
+            lista.add(partida);
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return lista;
+    }
+
+    private String cursorToDetalle(Cursor cursor){
+        String jugada = "";
+
+        jugada.concat(cursor.getString(1));
+        jugada.concat(": ");
+        jugada.concat(cursor.getString(3));
+        jugada.concat("\t\t");
+        jugada.concat(cursor.getString(2));
+        jugada.concat(": ");
+        jugada.concat(cursor.getString(4));
+
+        return jugada;
+    }
+
+    public int getCantidadDePartidas() {
+        String countQuery = "SELECT  * FROM " + PARTIDA_TABLE_NAME;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+        int cnt = cursor.getCount();
+        cursor.close();
+
+        return cnt;
     }
 
     public Boolean gameExists(String nombre){
