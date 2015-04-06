@@ -130,6 +130,7 @@ public class PartidaActual extends ActionBarActivity {
 
                     Intent intent = new Intent(PartidaActual.this, MainActivity.class);
                     intent.putExtra("Actualizar", "si");
+                    startActivity(intent);
 
                 }else if (puntosB > puntosA){
                     crearAlertDialog("El ganador es: "+ textViewEquipoB.getText().toString() +"!");

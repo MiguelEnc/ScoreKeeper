@@ -279,6 +279,7 @@ public class DBConnection extends SQLiteOpenHelper{
     private Partida cursorToPartidas(Cursor cursor){
         Partida partida = new Partida();
 
+        partida.setID(cursor.getInt(0));
         partida.setJuego(cursor.getString(1));
         partida.setEquipo_A(cursor.getString(2));
         partida.setEquipo_B(cursor.getString(3));
@@ -288,7 +289,7 @@ public class DBConnection extends SQLiteOpenHelper{
         return partida;
     }
 
-    public ArrayList<String> getDetalleDePartidaByID(Integer id){
+    public ArrayList<String> getDetalleDePartidaByID(String id){
         ArrayList<String> lista = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -297,7 +298,7 @@ public class DBConnection extends SQLiteOpenHelper{
                 DETALLE_TABLE_NAME,
                 ALL_COLUMNS_DETALLE,
                 "id = ?",
-                new String[] {String.valueOf(id)},
+                new String[] {id},
                 null,
                 null,
                 null
@@ -318,13 +319,13 @@ public class DBConnection extends SQLiteOpenHelper{
     private String cursorToDetalle(Cursor cursor){
         String jugada = "";
 
-        jugada.concat(cursor.getString(1));
-        jugada.concat(": ");
-        jugada.concat(cursor.getString(3));
-        jugada.concat("\t\t\t");
-        jugada.concat(cursor.getString(2));
-        jugada.concat(": ");
-        jugada.concat(cursor.getString(4));
+        jugada += cursor.getString(1);
+        jugada += ": ";
+        jugada += cursor.getString(3);
+        jugada += "\t\t\t\t";
+        jugada += cursor.getString(2);
+        jugada += ": ";
+        jugada += cursor.getString(4);
 
         return jugada;
     }

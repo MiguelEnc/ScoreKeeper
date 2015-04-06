@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,18 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Home extends Fragment {
-    /**
-     * The fragment argument representing the section number for this
-     * fragment.
-     */
+
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    private List<String> ids = new ArrayList<>();
+    private List<Integer> ids = new ArrayList<>();
 
-    /**
-     * Returns a new instance of this fragment for the given section
-     * number.
-     */
     public static Home newInstance(int sectionNumber) {
         Home fragment = new Home();
         Bundle args = new Bundle();
@@ -70,15 +64,10 @@ public class Home extends Fragment {
         listaPartidas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = parent.getItemAtPosition(position).toString();
-                //item es la opcion que se presiono en el ListView
 
                 Intent intent = new Intent(getActivity(), ListaJugadas.class);
-
-
-
-                intent.putExtra("ID_EXTRA", id);
-
+                int posicion = (int) id;
+                intent.putExtra("ID_EXTRA", (ids.get(posicion) + 1));
                 startActivity(intent);
             }
         });
@@ -127,7 +116,9 @@ public class Home extends Fragment {
 
         for(int i = 0; i < partidas.size(); i++){
             Partida partida = partidas.get(i);
-        //    ids.add(partida.getID);
+
+            ids.add(partida.getID());
+
             items.add(
                     partida.getEquipo_A() + " : " +
                     partida.getPuntajeEquipoA() + "\t\t\t\t" +

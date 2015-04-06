@@ -4,6 +4,7 @@ package com.example.miguel.scorekeeper;
  * Created by miguel on 04/02/15.
  */
 public class Partida {
+    private int id = 0;
     private String equipo_A;
     private String equipo_B;
     private String juego;
@@ -12,13 +13,33 @@ public class Partida {
 
     public Partida(){}
 
-    public Partida(String Eq_A, String Eq_B, String juego, Integer puntos_A, Integer puntos_B){
+    public Partida(Integer id, String Eq_A, String Eq_B, String juego, Integer puntos_A, Integer puntos_B){
+        this.id = id;
         this.equipo_A = Eq_A;
         this.equipo_B = Eq_B;
         this.juego = juego;
         this.puntaje_equipo_A = puntos_A;
         this.puntaje_equipo_B = puntos_B;
     }
+
+    /**
+     * Sets id.
+     *
+     * @param id
+     */
+    public void setID(Integer id){
+        this.id = id;
+    }
+
+    /**
+     * Gets the id.
+     *
+     * @return id
+     */
+    public Integer getID(){
+        return this.id;
+    }
+
 
     /**
      * Sets Equipo_A.
