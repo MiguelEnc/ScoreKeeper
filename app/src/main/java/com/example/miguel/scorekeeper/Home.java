@@ -118,7 +118,7 @@ public class Home extends Fragment {
             Partida partida = partidas.get(i);
             items.add(
                     partida.getEquipo_A() + " : " +
-                    partida.getPuntajeEquipoA() + "\n" +
+                    partida.getPuntajeEquipoA() + "\t\t\t\t" +
                     partida.getEquipo_B() + " : " +
                     partida.getPuntajeEquipoB()
             );

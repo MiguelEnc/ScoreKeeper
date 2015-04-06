@@ -8,13 +8,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 
@@ -121,8 +117,6 @@ public class PartidaActual extends ActionBarActivity {
                 editTextEquipoA.setText("");
                 editTextEquipoB.setText("");
 
-
-
                 connection.insertPartida(
                         intent.getStringExtra("juego"),
                         intent.getStringExtra("equipoA"),
@@ -131,62 +125,24 @@ public class PartidaActual extends ActionBarActivity {
                         puntosB
                 );
 
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(PartidaActual.this);
-
-
                 if (puntosA > puntosB){
-                    builder1.setMessage("El ganador es: "+ textViewEquipoA.getText().toString() +"!");
-                    builder1.setPositiveButton("Ok",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    //ir al Main Activity
-                                    Intent intent = new Intent(PartidaActual.this, MainActivity.class);
-                                    intent.putExtra("Actualizar", "si");
-                                    startActivity(intent);
+                    crearAlertDialog("El ganador es: "+ textViewEquipoA.getText().toString() +"!");
 
-                                    dialog.cancel();
-                                }
-                            });
+                    Intent intent = new Intent(PartidaActual.this, MainActivity.class);
+                    intent.putExtra("Actualizar", "si");
 
-                    AlertDialog alert11 = builder1.create();
-                    alert11.show();
                 }else if (puntosB > puntosA){
-                    builder1.setMessage("El ganador es: "+ textViewEquipoB.getText().toString() +"!");
-                    builder1.setPositiveButton("Ok",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    //ir al Main Activity
-                                    Intent intent = new Intent(PartidaActual.this, MainActivity.class);
-                                    intent.putExtra("Actualizar", "si");
-                                    startActivity(intent);
+                    crearAlertDialog("El ganador es: "+ textViewEquipoB.getText().toString() +"!");
 
-                                    dialog.cancel();
-                                }
-                            });
-
-                    AlertDialog alert11 = builder1.create();
-                    alert11.show();
+                    Intent intent = new Intent(PartidaActual.this, MainActivity.class);
+                    intent.putExtra("Actualizar", "si");
+                    startActivity(intent);
 
                 }else if (puntosA == puntosB){
-
-                    builder1.setMessage("Es un empate!");
-                    builder1.setPositiveButton("Ok",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    //ir al Main Activity
-                                    Intent intent = new Intent(PartidaActual.this, MainActivity.class);
-                                    intent.putExtra("Actualizar", "si");
-                                    startActivity(intent);
-
-                                    dialog.cancel();
-                                }
-                            });
-
-                    AlertDialog alert11 = builder1.create();
-                    alert11.show();
-
+                    Intent intent = new Intent(PartidaActual.this, MainActivity.class);
+                    intent.putExtra("Actualizar", "si");
+                    startActivity(intent);
                 }
-
 
             }
         });

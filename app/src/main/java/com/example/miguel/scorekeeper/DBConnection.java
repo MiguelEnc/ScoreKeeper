@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -322,7 +321,7 @@ public class DBConnection extends SQLiteOpenHelper{
         jugada.concat(cursor.getString(1));
         jugada.concat(": ");
         jugada.concat(cursor.getString(3));
-        jugada.concat("\t\t");
+        jugada.concat("\t\t\t");
         jugada.concat(cursor.getString(2));
         jugada.concat(": ");
         jugada.concat(cursor.getString(4));
