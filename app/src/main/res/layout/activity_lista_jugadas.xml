@@ -34,7 +34,8 @@
             android:text="Volver"
             android:id="@+id/buttonVolver"
             android:layout_gravity="center"
-            android:textSize="25dp" />
+            android:textSize="25dp"
+            android:onClick="setContentView" />
     </FrameLayout>
 
 </RelativeLayout>

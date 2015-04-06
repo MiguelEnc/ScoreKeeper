@@ -128,21 +128,12 @@ public class PartidaActual extends ActionBarActivity {
                 if (puntosA > puntosB){
                     crearAlertDialog("El ganador es: "+ textViewEquipoA.getText().toString() +"!");
 
-                    Intent intent = new Intent(PartidaActual.this, MainActivity.class);
-                    intent.putExtra("Actualizar", "si");
-                    startActivity(intent);
-
                 }else if (puntosB > puntosA){
                     crearAlertDialog("El ganador es: "+ textViewEquipoB.getText().toString() +"!");
 
-                    Intent intent = new Intent(PartidaActual.this, MainActivity.class);
-                    intent.putExtra("Actualizar", "si");
-                    startActivity(intent);
-
                 }else if (puntosA == puntosB){
-                    Intent intent = new Intent(PartidaActual.this, MainActivity.class);
-                    intent.putExtra("Actualizar", "si");
-                    startActivity(intent);
+                    crearAlertDialog("Es un empate!");
+
                 }
 
             }
@@ -157,6 +148,10 @@ public class PartidaActual extends ActionBarActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
+
+                        Intent intent = new Intent(PartidaActual.this, MainActivity.class);
+                        intent.putExtra("Actualizar", "si");
+                        startActivity(intent);
                     }
                 });
 

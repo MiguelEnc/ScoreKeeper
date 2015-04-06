@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -22,6 +24,8 @@ public class ListaJugadas extends ActionBarActivity {
         String id = "";
 
         ListView listaJugadas = (ListView) findViewById(R.id.listViewDetalle);
+        Button buttonVolver = (Button) findViewById(R.id.buttonVolver);
+
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -30,7 +34,16 @@ public class ListaJugadas extends ActionBarActivity {
         }
         listaJugadas.setAdapter(adapterList(id));
 
+        buttonVolver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListaJugadas.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
+
 
     private ArrayAdapter<String> adapterList(String id){
         DBConnection connection = new DBConnection(this);
