@@ -1,6 +1,7 @@
 package com.example.miguel.scorekeeper;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,6 +21,8 @@ public class Home extends Fragment {
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
+
+    private List<String> ids = new ArrayList<>();
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -69,6 +72,14 @@ public class Home extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String item = parent.getItemAtPosition(position).toString();
                 //item es la opcion que se presiono en el ListView
+
+                Intent intent = new Intent(getActivity(), ListaJugadas.class);
+
+
+
+                intent.putExtra("ID_EXTRA", id);
+
+                startActivity(intent);
             }
         });
 
@@ -116,6 +127,7 @@ public class Home extends Fragment {
 
         for(int i = 0; i < partidas.size(); i++){
             Partida partida = partidas.get(i);
+        //    ids.add(partida.getID);
             items.add(
                     partida.getEquipo_A() + " : " +
                     partida.getPuntajeEquipoA() + "\n" +

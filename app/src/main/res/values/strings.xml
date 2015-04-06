@@ -19,5 +19,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_inicar_partida">InicarPartida</string>
     <string name="title_activity_partida_actual">PartidaActual</string>
+    <string name="title_activity_listajugadas">listajugadas</string>
+    <string name="title_activity_lista_jugadas">ListaJugadas</string>
 
 </resources>
