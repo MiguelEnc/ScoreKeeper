@@ -164,11 +164,12 @@ public class DBConnection extends SQLiteOpenHelper{
         db.insert(TEAM_TABLE_NAME, null, values);
     }
 
-    public void insertPartida(String juego, String equipoA, String equipoB, Integer puntosA, Integer puntosB){
+    public void insertPartida(Integer id, String juego, String equipoA, String equipoB, Integer puntosA, Integer puntosB){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
+        values.put(PARTIDA_COLUMN_ID, id);
         values.put(PARTIDA_COLUMN_JUEGO, juego);
         values.put(PARTIDA_COLUMN_EQUIPO_A, equipoA);
         values.put(PARTIDA_COLUMN_EQUIPO_B, equipoB);

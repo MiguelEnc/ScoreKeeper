@@ -42,9 +42,9 @@ public class RegistrarJuego extends android.support.v4.app.Fragment {
                 DBConnection connection = new DBConnection(RegistrarJuego.this.getActivity());
 
                 //Creando juego default
-                if(!connection.gameExists("juego a")){
+                /*if(!connection.gameExists("juego a")){
                     connection.insertGame("juego a","descripcion");
-                }
+                }*/
 
                 //Guardando los datos en la base de datos
                 if(editTextNombre.getText().toString().isEmpty() || editTextDescrip.getText().toString().isEmpty()) {

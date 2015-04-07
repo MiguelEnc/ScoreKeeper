@@ -24,7 +24,7 @@ public class PartidaActual extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_partida_actual);
 
-        final Intent intent = getIntent();
+        final Intent intent1 = getIntent();
 
         final DBConnection connection = new DBConnection(PartidaActual.this);
 
@@ -41,9 +41,9 @@ public class PartidaActual extends ActionBarActivity {
         final TextView textViewEquipoB = (TextView) findViewById(R.id.textViewEquipoB);
 
         //Asignando nombres a los textViews
-        textViewJuego.setText(intent.getStringExtra("juego"));
-        textViewEquipoA.setText(intent.getStringExtra("equipoA"));
-        textViewEquipoB.setText(intent.getStringExtra("equipoB"));
+        textViewJuego.setText(intent1.getStringExtra("juego"));
+        textViewEquipoA.setText(intent1.getStringExtra("equipoA"));
+        textViewEquipoB.setText(intent1.getStringExtra("equipoB"));
 
         editTextEquipoA.setText("");
         editTextEquipoB.setText("");
@@ -68,8 +68,8 @@ public class PartidaActual extends ActionBarActivity {
                     helpA = Integer.parseInt(ayudaA);
                     connection.insertDetalle(
                             numeroDePartidas + 1,
-                            intent.getStringExtra("equipoA"),
-                            intent.getStringExtra("equipoB"),
+                            intent1.getStringExtra("equipoA"),
+                            intent1.getStringExtra("equipoB"),
                             ayudaA,
                             "0"
                     );
@@ -98,8 +98,8 @@ public class PartidaActual extends ActionBarActivity {
                     helpB = Integer.parseInt(ayudaB);
                     connection.insertDetalle(
                             numeroDePartidas + 1,
-                            intent.getStringExtra("equipoA"),
-                            intent.getStringExtra("equipoB"),
+                            intent1.getStringExtra("equipoA"),
+                            intent1.getStringExtra("equipoB"),
                             "0",
                             ayudaB
                     );
@@ -118,9 +118,10 @@ public class PartidaActual extends ActionBarActivity {
                 editTextEquipoB.setText("");
 
                 connection.insertPartida(
-                        intent.getStringExtra("juego"),
-                        intent.getStringExtra("equipoA"),
-                        intent.getStringExtra("equipoB"),
+                        numeroDePartidas + 1,
+                        intent1.getStringExtra("juego"),
+                        intent1.getStringExtra("equipoA"),
+                        intent1.getStringExtra("equipoB"),
                         puntosA,
                         puntosB
                 );

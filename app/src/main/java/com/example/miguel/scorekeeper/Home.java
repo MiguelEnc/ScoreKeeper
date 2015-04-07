@@ -67,15 +67,15 @@ public class Home extends Fragment {
 
                 Intent intent = new Intent(getActivity(), ListaJugadas.class);
                 int posicion = (int) id;
-                intent.putExtra("ID_EXTRA", (ids.get(posicion) + 1));
+                intent.putExtra("ID_EXTRA", (ids.get(position)));
                 startActivity(intent);
             }
         });
 
         //Creando partida default
-        if(!connection.partidaExists("juego a", "prueba a", "prueba b")){
+        /*if(!connection.partidaExists("juego a", "prueba a", "prueba b")){
             connection.insertPartida("juego a", "prueba a", "prueba b", 3, 2);
-        }
+        } */
 
         //Aqui se cambia el titulo del fragment
         ((MainActivity) getActivity())
@@ -113,6 +113,7 @@ public class Home extends Fragment {
         DBConnection connection = new DBConnection(Home.this.getActivity());
         List<Partida> partidas = connection.getAllPartidas(juego);
         List<String> items = new ArrayList<>();
+        ids.clear();
 
         for(int i = 0; i < partidas.size(); i++){
             Partida partida = partidas.get(i);

@@ -42,12 +42,12 @@ public class RegistrarEquipo extends android.support.v4.app.Fragment {
                 DBConnection connection = new DBConnection(RegistrarEquipo.this.getActivity());
 
                 //Creando equipos default
-                if(!connection.teamExists("prueba a")){
+                /*if(!connection.teamExists("prueba a")){
                     connection.insertTeam("prueba a","descripcion");
                 }
                 if(!connection.teamExists("prueba b")){
                     connection.insertTeam("prueba b","descripcion");
-                }
+                }*/
 
                 //Guardando los datos en la base de datos
                 if(editTextNombre.getText().toString().isEmpty() || editTextDescrip.getText().toString().isEmpty()) {
