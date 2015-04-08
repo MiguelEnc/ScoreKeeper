@@ -59,7 +59,18 @@ public class PartidaActual extends ActionBarActivity {
 
                 if (editTextEquipoA.getText().toString().isEmpty()) {
 
-                    crearAlertDialog("No hay datos.");
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(PartidaActual.this);
+                    builder1.setMessage("No hay datos.");
+                    builder1.setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+
                     editTextEquipoA.setText("");
                     editTextEquipoB.setText("");
 
@@ -89,7 +100,18 @@ public class PartidaActual extends ActionBarActivity {
 
                 if(editTextEquipoB.getText().toString().isEmpty()){
 
-                    crearAlertDialog("No hay datos.");
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(PartidaActual.this);
+                    builder1.setMessage("No hay datos.");
+                    builder1.setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+
                     editTextEquipoA.setText("");
                     editTextEquipoB.setText("");
 
