@@ -24,7 +24,6 @@ public class ListaJugadas extends ActionBarActivity {
         String id = "";
 
         ListView listaJugadas = (ListView) findViewById(R.id.listViewDetalle);
-        Button buttonVolver = (Button) findViewById(R.id.buttonVolver);
 
 
         Intent intent = getIntent();
@@ -33,14 +32,6 @@ public class ListaJugadas extends ActionBarActivity {
             id = String.valueOf(extras.get("ID_EXTRA"));
         }
         listaJugadas.setAdapter(adapterList(id));
-
-        buttonVolver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ListaJugadas.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
 
     }
 
